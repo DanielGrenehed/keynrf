@@ -1,0 +1,26 @@
+/{ 	
+	&i2c0 {
+		compatible = "nordic,nrf-twi";
+		status = "okay";
+		clock-frequency = <I2C_BITRATE_FAST>;
+		sda-pin = <29>;
+		scl-pin = <31>;
+
+		lcd: lcd@3c {
+			compatible = "solomon,ssd1306fb";
+			label = "SSD1306";
+			reg = <0x3C>;
+			height = <32>;
+			width = <128>;
+			segment-offset = <0>;
+			page-offset = <0>;
+			display-offset = <0>;
+			multiplex-ratio = <31>;
+			prechargep = <0xD1>;
+			segment-remap;
+			com-invdir;
+			com-sequential;
+		};
+	};
+	
+};
