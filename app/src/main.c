@@ -1,7 +1,7 @@
-#include <zephyr.h>
-#include <device.h>
-#include <devicetree.h>
-#include <display/cfb.h>
+#include <zephyr/device.h>
+#include <zephyr/kernel.h>
+#include <zephyr/display/cfb.h>
+//#include <zephyr/logging/log.h>
 
 /**
  *	nRF52840-Dongle:
@@ -38,38 +38,16 @@
  *		RX 		- GPIO 0.20
  *	
   * */
+//LOG_MODULE_REGISTER(display);
+//static const struct device *display = DEVICE_DT_GET(DT_NODELABEL(ssd1306));
 
-#define DISPLAY_DEVICE DT_NODELABEL(lcd)
-#define SELECTED_FONT_INDEX 4
-static struct device *dev = DEVICE_DT_GET(DISPLAY_DEVICE);
-
-void display_text() {
-	cfb_print(dev, "Hello world", 16, 16);
-	cfb_framebuffer_finalize(dev);
+void main(void) {
+	//if (display == NULL) {
+	//	LOG_ERR("device pointer is NULL");
+	//	return;
+	//}
+	//if (!device_is_ready(display)) {
+	//	LOG_ERR("display device is not ready");
+	//	return;
+	//}
 }
-void display_clear() {
-	cfb_framebuffer_clear(dev, false);
-}
-void display_init() {
-	while (!device_is_ready(dev));
-
-	if (dev == NULL) return;
-	if (display_set_pixel_format(dev, PIXEL_FORMAT_MONO10) != 0) return;
-	if (cfb_framebuffer_init(dev)) return;
-	cfb_framebuffer_clear(dev, true);
-	display_blanking_off(dev);
-
-	cfb_framebuffer_set_font(dev, SELECTED_FONT_INDEX);
-	cfb_framebuffer_invert(dev);
-}
-
-#define STACKSIZE 1024
-#define PRIORITY 7
-
-int main_thread(void * id) {
-	display_init();
-	display_text();
-	return 0;
-}
-
-K_THREAD_DEFINE(main_id, STACKSIZE, main_thread, NULL PRIORITY, 0, K_NO_WAIT);

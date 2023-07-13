@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.13.1)
-
 set(BOARD nrf52840dongle_nrf52840)
 set(DTC_OVERLAY_FILE keynrf.overlay)
 find_package(Zephyr)
