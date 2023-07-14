@@ -8,7 +8,7 @@ nRF52840-Dongle:
 		SW1 Button	- GPIO 1.06
 		SW2 Reset	- GPIO 0.18
 	
-    Leds:
+    Leds:    
         LD1 Green   - GPIO 0.06
 		LD2 Red		- GPIO 0.08
 		LD2 Green	- GPIO 1.09
@@ -32,10 +32,7 @@ Perfboard:
 		B 	    	- GPIO 0.15
 
 	Display I2C:
-		SCK 		- GPIO 0.31
-		SDA 		- GPIO 0.29
+        SCK         - GPIO 0.17
+        SDA         - GPIO 0.20
 
-	UART (midi):
-		TX 	    	- GPIO 0.17
-		RX 	    	- GPIO 0.20
 
