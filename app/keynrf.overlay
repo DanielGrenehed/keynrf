@@ -6,13 +6,13 @@
 		led1: led_1 {
 			gpios = <&gpio0 6 (GPIO_ACTIVE_LOW)>;
 		};
-		led2r {
+		led2r: led_2_r {
 			gpios = <&gpio0 8 (GPIO_ACTIVE_LOW)>;
 		};
-		led2g {
+		led2g: led_2_g {
 			gpios = <&gpio1 9 (GPIO_ACTIVE_LOW)>;
 		};
-		led2b {	
+		led2b: led_2_b {	
 			gpios = <&gpio0 12 (GPIO_ACTIVE_LOW)>;
 		};
 	};
