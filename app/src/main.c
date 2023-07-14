@@ -3,12 +3,13 @@
 #include <zephyr/device.h>
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/i2c.h>
+#include <zephyr/drivers/gpio.h>
 #include <zephyr/display/cfb.h>
 #include <zephyr/logging/log.h>
 
 /**
  *	nRF52840-Dongle:
- *		SW1 Button	- GIPO 1.06
+ *		SW1 Button	- GPIO 1.06
  *		SW2 Reset	- GPIO 0.18
  *		LD1 Green	- GPIO 0.06
  *		LD2 Red		- GPIO 0.08
@@ -41,12 +42,21 @@
  *		RX 		- GPIO 0.20
  *	
   * */
+
+static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(DT_NODELABEL(led1), gpios);
+
 LOG_MODULE_REGISTER(display);
 static const struct device *display = DEVICE_DT_GET(DT_NODELABEL(ssd1306));
 
 
 
 void main(void) {
+	gpio_pin_configure_dt(&led, GPIO_OUTPUT);
+	while (1) {
+		gpio_pin_toggle_dt(&led);
+		k_msleep(5000);
+	}
+
 	if (display == NULL) {
 		LOG_ERR("device pointer is NULL");
 		return;
@@ -72,4 +82,5 @@ void main(void) {
 		LOG_ERR("could not finalize to display");
 		return;
 	}
+
 }
