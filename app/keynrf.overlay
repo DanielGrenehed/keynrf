@@ -15,7 +15,8 @@
 };
 
 &i2c1 {
-	/* compatible = "nordic,nrf-twi"; */
+	compatible = "nordic,nrf-twi";
+	status = "okay";
 	pinctrl-0 = <&i2c1_default_alt>;
 	pinctrl-1 = <&i2c1_default_alt>;
 	pinctrl-names = "default", "sleep";
@@ -23,6 +24,7 @@
 
 	ssd1306: ssd1306@3C {
 		compatible = "solomon,ssd1306fb";
+		status = "okay";
 		reg = <0x3C>;
 		height = <32>;
 		width = <128>;
@@ -34,4 +36,6 @@
 		segment-remap;
 		com-invdir;
 	};
+
 };
+
