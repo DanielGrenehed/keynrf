@@ -9,7 +9,7 @@ nRF52840-Dongle:
 		SW2 Reset	- GPIO 0.18
 	
     Leds:
-        LD1 Green	- GPIO 0.06
+        LD1 Green   - GPIO 0.06
 		LD2 Red		- GPIO 0.08
 		LD2 Green	- GPIO 1.09
 		LD2 Blue	- GPIO 0.12
