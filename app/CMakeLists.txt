@@ -4,7 +4,8 @@ set(DTC_OVERLAY_FILE keynrf.overlay)
 find_package(Zephyr)
 project(keynrf)
 
-target_sources(app PRIVATE src/main.c)
+include_directories(src)
+target_sources(app PRIVATE src/main.c src/keys.c src/leds.c)
 
 set_property(GLOBAL APPEND PROPERTY HEX_FILES_TO_MERGE
 	${app_bootloader_hex}
