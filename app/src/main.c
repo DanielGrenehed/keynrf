@@ -17,6 +17,10 @@ LOG_MODULE_REGISTER(display);
 static const struct device *display = DEVICE_DT_GET(DT_NODELABEL(ssd1306));
 static const struct device *i2c = DEVICE_DT_GET(DT_NODELABEL(i2c0));
 
+void scan_i2c() {
+	for (int i = 0; i < 127; i++) LOG_INF("i2c: %x : %i", i, i2c_write(i2c, NULL, 0, i));
+}
+
 void config_gpio() {
 	config_keys();
 	config_leds();
@@ -34,16 +38,14 @@ void main(void) {
 		return;
 	}
 	
-	for (int i = 0; i < 127; i++) {
-		LOG_INF("i2c: %x : %i", i, i2c_write(i2c, NULL, 0, i));
-	}
-
-	LOG_INF("Hello world!");
+	//scan_i2c();
+	//
 	if (display == NULL) {
 		LOG_ERR("device pointer is NULL");
-		set_led_2(255, 0, 0);
 		while(1) {
-			toggle_led_2();
+			set_led_2(255, 0, 0);
+			k_msleep(500);
+			set_led_2(0, 0, 0);
 			k_msleep(500);
 		}
 		return;
@@ -51,10 +53,11 @@ void main(void) {
 	LOG_INF("Device pointer not null");
 	if (!device_is_ready(display)) {
 		LOG_ERR("display device is not ready");
-		set_led_2(0, 127, 127);
 		while (!device_is_ready(display)) {
-			toggle_led_2();
+			set_led_2(0, 127, 127);
 			k_msleep(700);
+			set_led_2(0, 0, 0);
+			k_msleep(500);
 		}
 		//return;
 	}
@@ -63,9 +66,10 @@ void main(void) {
 	ret = cfb_framebuffer_init(display);
 	if (ret != 0) {
 		LOG_ERR("could not initialize display");
-		set_led_2(0, 0, 255);
 		while (1) {
-			toggle_led_2();
+			set_led_2(0, 0, 255);
+			k_msleep(1000);
+			set_led_2(0, 0, 0);
 			k_msleep(1000);
 		}
 		return;
@@ -82,10 +86,10 @@ void main(void) {
 	ret = cfb_framebuffer_finalize(display);
 	if (ret != 0) {
 		LOG_ERR("could not finalize to display");
-		set_led_2(0, 0, 255);
 		while (1) {
-			toggle_led_2();
+			set_led_2(0, 0, 255);
 			k_msleep(250);
+			set_led_2(0, 0, 0);
 			toggle_led_1();
 			k_msleep(500);
 		}
