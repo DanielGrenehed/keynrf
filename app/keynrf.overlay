@@ -6,6 +6,8 @@
 		led1: led_1 {
 			gpios = <&gpio0 6 (GPIO_ACTIVE_LOW)>;
 		};
+
+		// unused, using pwm from nrf52840_dongle .dts file
 		led2r: led_2_r {
 			gpios = <&gpio0 8 (GPIO_ACTIVE_LOW)>;
 		};
@@ -64,6 +66,11 @@
 			gpios = <&gpio0 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
 		};
 	};
+};
+
+&uart0 {
+	compatible = "nordic,nrf-uarte";
+	status = "disabled";
 };
 
 &pinctrl {
